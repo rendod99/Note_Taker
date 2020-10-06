@@ -10,7 +10,6 @@ app.use(express.urlencoded({
 }));
 app.use(express.json());
 
-
 require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
 
