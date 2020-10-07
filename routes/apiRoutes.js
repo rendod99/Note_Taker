@@ -11,7 +11,8 @@ module.exports = function (app) {
     app.post("/api/notes", function (req, res) {
 
         notesData.push(req.body);
-        res.json(req.body);
+        res.json(notesData);
+
 
     });
 
@@ -24,6 +25,7 @@ module.exports = function (app) {
             if (err) throw err;
 
             const readNotes = JSON.parse(data);
+            console.log(readNotes);
 
             function checkNotes(readNotes) {
                 if (readNotes.id !== noteId) {
@@ -34,7 +36,7 @@ module.exports = function (app) {
 
             fs.writeFile("./db/db.json", JSON.stringify(newAllNotes, null, 2), function (err) {
                 if (err) throw err;
-                res.json(notesData);
+                res.json(newAllNotes);
 
             });
         });
