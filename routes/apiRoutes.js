@@ -1,5 +1,5 @@
 var notesData = require("../db/db");
-
+const fs = require("fs");
 
 
 module.exports = function (app) {
@@ -18,7 +18,25 @@ module.exports = function (app) {
     app.delete("/api/notes/:id", function (req, res) {
 
 
+        var noteId = req.params.id;
 
+        fs.readFile("./db/db.json", "utf8", function (err, data) {
+            if (err) throw err;
+
+            const readNotes = JSON.parse(data);
+
+            function checkNotes(readNotes) {
+                if (readNotes.id !== noteId) {
+                    return readNotes;
+                };
+            }
+            const newAllNotes = readNotes.filter(checkNotes);
+
+            fs.writeFile("./db/db.json", JSON.stringify(newAllNotes, null, 2), function (err) {
+                if (err) throw err;
+                res.json(notesData);
+
+            });
+        });
     });
-
 };
