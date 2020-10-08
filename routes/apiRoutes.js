@@ -25,7 +25,7 @@ module.exports = function (app) {
             if (err) throw err;
 
             const readNotes = JSON.parse(data);
-            console.log(readNotes);
+
 
             function checkNotes(readNotes) {
                 if (readNotes.id !== noteId) {
